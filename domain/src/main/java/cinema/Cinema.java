@@ -7,9 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import movie_showing.MovieShowing;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 @Data
@@ -23,6 +21,11 @@ public class Cinema extends BaseEntity {
     private String name;
     private String city;
     private String addressLine;
+
+    @ElementCollection
+    @CollectionTable(name = "cinema_rooms", joinColumns = {@JoinColumn(name = "room_number")})
+    @Column(name = "room_number")
+    private List<Integer> roomNumbers;
 
     @OneToMany(mappedBy = "cinema")
     private List<MovieShowing> movieShowings;
