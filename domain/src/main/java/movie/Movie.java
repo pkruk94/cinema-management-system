@@ -9,6 +9,7 @@ import movie_showing.MovieShowing;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -25,6 +26,6 @@ public class Movie extends BaseEntity {
 
     private LocalDate releaseDate;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST})
-    private MovieShowing movieShowings;
+    @OneToMany(mappedBy = "movie")
+    private List<MovieShowing> movieShowings;
 }

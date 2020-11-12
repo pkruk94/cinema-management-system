@@ -9,6 +9,14 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
+    <dependencies>
+        <dependency>
+            <groupId>com.app</groupId>
+            <artifactId>domain</artifactId>
+            <version>1.0</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
     <artifactId>application</artifactId>
 
 </project>

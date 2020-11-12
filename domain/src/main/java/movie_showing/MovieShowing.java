@@ -8,9 +8,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import movie.Movie;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -20,8 +22,8 @@ import java.util.List;
 @Table(name = "movie_showings")
 public class MovieShowing extends BaseEntity {
 
-    @OneToMany(mappedBy = "movieShowings")
-    private List<Movie> movie;
+    @ManyToOne(cascade = {CascadeType.PERSIST})
+    private Movie movie;
 
     private LocalDateTime movieShowingTime;
     private Integer roomNumber;
