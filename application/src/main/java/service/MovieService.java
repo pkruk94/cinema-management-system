@@ -168,4 +168,17 @@ public class MovieService {
         return true;
     }
 
+    public boolean removeMovieFromFavourites(Long movieId, Long userId) {
+        if (Objects.isNull(movieId) || Objects.isNull(userId)) {
+            throw new MovieServiceException("Neither movie ID nor user ID cannot be null");
+        }
+
+        User user = userRepository.findById(userId).orElseThrow(() -> new MovieServiceException("User could not be found while assigning favourite movie"));
+        Movie movie = movieRepository.findById(movieId).orElseThrow(() -> new MovieServiceException("Movie could not be found while assigning to user"));
+
+        user.getFavouriteMovies().remove(movie);
+        userRepository.addOrUpdate(user);
+        return true;
+    }
+
 }
