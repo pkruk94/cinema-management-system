@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import movie_showing.MovieShowing;
 import user.User;
+import value_object.Money;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -33,4 +34,7 @@ public class Movie extends BaseEntity {
 
     @ManyToMany(mappedBy = "favouriteMovies")
     private Set<User> users;
+
+    @Embedded
+    private Money price;
 }

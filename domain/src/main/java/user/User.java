@@ -6,8 +6,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import movie.Movie;
+import order.Order;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -32,5 +34,8 @@ public class User extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "movie_id")
     )
     private Set<Movie> favouriteMovies;
+
+    @OneToMany(mappedBy = "user")
+    private List<Order> orders;
 
 }

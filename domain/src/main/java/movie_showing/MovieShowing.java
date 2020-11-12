@@ -7,12 +7,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import movie.Movie;
+import ticket.Ticket;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -30,4 +29,7 @@ public class MovieShowing extends BaseEntity {
 
     @ManyToOne(cascade = {CascadeType.PERSIST})
     private Cinema cinema;
+
+    @OneToMany(mappedBy = "movieShowing")
+    private List<Ticket> tickets;
 }
