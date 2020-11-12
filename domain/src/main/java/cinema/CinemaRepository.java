@@ -1,6 +1,6 @@
 package cinema;
 
-import org.springframework.data.repository.CrudRepository;
+import base.generic.CrudRepository;
 
 public interface CinemaRepository extends CrudRepository<Cinema, Long> {
 }

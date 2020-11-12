@@ -1,5 +1,6 @@
 package movie;
 
+import base.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,11 +16,7 @@ import java.time.LocalDate;
 @Builder
 @Entity
 @Table(name = "movies")
-public class Movie {
-
-    @Id
-    @GeneratedValue
-    private Long id;
+public class Movie extends BaseEntity {
 
     private String title;
 

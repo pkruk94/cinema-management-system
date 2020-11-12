@@ -1,5 +1,6 @@
 package movie_showing;
 
+import base.BaseEntity;
 import cinema.Cinema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,11 +18,7 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "movie_showings")
-public class MovieShowing {
-
-    @Id
-    @GeneratedValue
-    private Long id;
+public class MovieShowing extends BaseEntity {
 
     @OneToMany(mappedBy = "movieShowings")
     private List<Movie> movie;

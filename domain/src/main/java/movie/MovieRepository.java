@@ -1,6 +1,6 @@
 package movie;
 
-import org.springframework.data.repository.CrudRepository;
+import base.generic.CrudRepository;
 
 public interface MovieRepository extends CrudRepository<Movie, Long> {
 }

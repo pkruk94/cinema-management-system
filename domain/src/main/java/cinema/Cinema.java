@@ -1,12 +1,15 @@
 package cinema;
 
+import base.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import movie_showing.MovieShowing;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.List;
 
 @Data
@@ -15,11 +18,7 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "cinemas")
-public class Cinema {
-
-    @Id
-    @GeneratedValue
-    private Long id;
+public class Cinema extends BaseEntity {
 
     private String city;
 
