@@ -1,6 +1,6 @@
-package validation;
+package validation.movie;
 
-import dto.movie.CreateMovieDto;
+import dto.movie.UpdateMovieDto;
 import movie.MovieGenre;
 import validation.generic.Validator;
 
@@ -9,14 +9,18 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class CreateMovieValidator implements Validator<CreateMovieDto> {
+public class UpdateMovieValidator implements Validator<UpdateMovieDto> {
     @Override
-    public Map<String, String> validate(CreateMovieDto item) {
+    public Map<String, String> validate(UpdateMovieDto item) {
         var errors = new HashMap<String, String>();
 
         if (Objects.isNull(item)) {
             errors.put("object", "object is null");
             return errors;
+        }
+
+        if (!isIdValid(item.getId())) {
+            errors.put("id", "id is not valid");
         }
 
         if (!isMovieGenreValid(item.getMovieGenre())) {
@@ -32,6 +36,10 @@ public class CreateMovieValidator implements Validator<CreateMovieDto> {
         }
 
         return errors;
+    }
+
+    private boolean isIdValid(Long id) {
+        return id != null && id > 0;
     }
 
     private boolean isTitleValid(String title) {

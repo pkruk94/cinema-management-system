@@ -1,4 +1,4 @@
-package validation;
+package validation.cinema;
 
 import dto.cinema.CreateCinemaDto;
 import validation.generic.Validator;

@@ -1,4 +1,4 @@
-package validation;
+package validation.user;
 
 import dto.user.CreateUserDto;
 import user.Role;

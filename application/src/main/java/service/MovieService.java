@@ -3,6 +3,7 @@ package service;
 import dto.movie.CreateMovieDto;
 import dto.movie.GetMovieDto;
 import dto.movie.MovieFilterData;
+import dto.movie.UpdateMovieDto;
 import exception.MovieServiceException;
 import lombok.RequiredArgsConstructor;
 import mapper.Mapper;
@@ -12,10 +13,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import user.User;
 import user.UserRepository;
-import validation.CreateMovieValidator;
+import validation.movie.CreateMovieValidator;
+import validation.movie.UpdateMovieValidator;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,6 +29,7 @@ public class MovieService {
     private MovieRepository movieRepository;
     private UserRepository userRepository;
 
+    // TODO dodac opcje usuwania, edycji, dodawania dla wielu i dla innych klas
     public Long addMovie(CreateMovieDto createMovieDto) {
         var createMovieValidator = new CreateMovieValidator();
         var errors = createMovieValidator.validate(createMovieDto);
@@ -39,9 +43,83 @@ public class MovieService {
             throw new MovieServiceException(errorMessage);
         }
 
+        if (movieRepository.findMovieByTitleAndReleaseDate(createMovieDto.getTitle(), createMovieDto.getReleaseDate()).isPresent()) {
+            throw new MovieServiceException("Such movie already exists in database");
+        }
+
         var movie = Mapper.fromCreateMovieToMovie(createMovieDto);
         // TODO potrzebny update?
         movie = movieRepository.addOrUpdate(movie).orElseThrow(() -> new MovieServiceException("Movie could not be added to database"));
+        return movie.getId();
+    }
+
+    public List<Long> addMovieMany(List<CreateMovieDto> createMovieDtos) {
+        // TODO zptymalizować
+        if (Objects.isNull(createMovieDtos)) {
+            throw new MovieServiceException("Movie list cannot be null");
+        }
+
+        var createMovieValidator = new CreateMovieValidator();
+        for (CreateMovieDto createMovieDto : createMovieDtos) {
+            var errors = createMovieValidator.validate(createMovieDto);
+            if (!errors.isEmpty()) {
+                var errorMessage = errors
+                        .entrySet()
+                        .stream()
+                        .map(e -> e.getKey() + ": " + e.getValue())
+                        .collect(Collectors.joining(", "));
+
+                throw new MovieServiceException(errorMessage);
+            }
+        }
+
+        for (CreateMovieDto createMovieDto : createMovieDtos) {
+            if (movieRepository.findMovieByTitleAndReleaseDate(createMovieDto.getTitle(), createMovieDto.getReleaseDate()).isPresent()) {
+                throw new MovieServiceException("Such movie already exists in database");
+            }
+        }
+
+        return createMovieDtos
+                .stream()
+                .map(Mapper::fromCreateMovieToMovie)
+                .map(movie -> movieRepository.addOrUpdate(movie))
+                .filter(Optional::isPresent)
+                .map(movie -> movie.get().getId())
+                .collect(Collectors.toList());
+    }
+
+    public GetMovieDto deleteMovieById(Long id) {
+        if (Objects.isNull(id)) {
+            throw new MovieServiceException("Id cannot be null");
+        }
+
+        return Mapper.fromMovieToGetMovieDto(
+                movieRepository
+                        .deleteById(id)
+                        .orElseThrow(() -> new MovieServiceException("Movie cold not be deleted")));
+    }
+
+    public Long updateMovie(UpdateMovieDto updateMovieDto) {
+        var updateMovieValidator = new UpdateMovieValidator();
+        var errors = updateMovieValidator.validate(updateMovieDto);
+        if (!errors.isEmpty()) {
+            var errorMessage = errors
+                    .entrySet()
+                    .stream()
+                    .map(e -> e.getKey() + ": " + e.getValue())
+                    .collect(Collectors.joining(", "));
+
+            throw new MovieServiceException(errorMessage);
+        }
+
+        var movie = movieRepository
+                .findById(updateMovieDto.getId())
+                .orElseThrow(() -> new MovieServiceException("Such movie does not exist in database"));
+
+        movie.setMovieGenre(updateMovieDto.getMovieGenre());
+        movie.setReleaseDate(updateMovieDto.getReleaseDate());
+        movie.setTitle(updateMovieDto.getTitle());
+        movie = movieRepository.addOrUpdate(movie).orElseThrow(() -> new MovieServiceException("Movie could not be saved to database"));
         return movie.getId();
     }
 

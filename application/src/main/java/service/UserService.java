@@ -7,7 +7,7 @@ import mapper.Mapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import user.UserRepository;
-import validation.CreateUserValidator;
+import validation.user.CreateUserValidator;
 
 import java.util.stream.Collectors;
 
