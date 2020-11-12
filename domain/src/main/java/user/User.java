@@ -28,8 +28,8 @@ public class User extends BaseEntity {
     @ManyToMany
     @JoinTable(
             name = "users_movies",
-            joinColumns = @JoinColumn("user_id"),
-            inverseJoinColumns = @JoinColumn("movie_id")
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "movie_id")
     )
     private Set<Movie> favouriteMovies;
 
