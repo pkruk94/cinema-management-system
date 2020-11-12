@@ -1,6 +1,6 @@
 package validation.cinema;
 
-import dto.cinema.CreateCinemaDto;
+import dto.cinema.UpdateCinemaDto;
 import validation.generic.Validator;
 
 import java.util.HashMap;
@@ -8,14 +8,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public class CreateCinemaValidator implements Validator<CreateCinemaDto> {
+public class UpdateCinemaValidator implements Validator<UpdateCinemaDto> {
+
     @Override
-    public Map<String, String> validate(CreateCinemaDto item) {
+    public Map<String, String> validate(UpdateCinemaDto item) {
         var errors = new HashMap<String, String>();
 
         if (Objects.isNull(item)) {
             errors.put("object", "object is null");
             return errors;
+        }
+
+        if (!isIdValid(item.getId())) {
+            errors.put("id", "id is not valid");
         }
 
         if (!isNameValid(item.getName())) {
@@ -37,6 +42,10 @@ public class CreateCinemaValidator implements Validator<CreateCinemaDto> {
         return errors;
     }
 
+    private boolean isIdValid(Long id) {
+        return id != null && id > 0;
+    }
+
     private boolean areRoomNumbersValid(List<Integer> roomNumbers) {
         return roomNumbers != null;
     }
@@ -52,4 +61,5 @@ public class CreateCinemaValidator implements Validator<CreateCinemaDto> {
     private boolean isCityValid(String city) {
         return city != null && city.matches("[A-z]+");
     }
+
 }

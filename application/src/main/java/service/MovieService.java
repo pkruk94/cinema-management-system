@@ -26,8 +26,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class MovieService {
 
-    private MovieRepository movieRepository;
-    private UserRepository userRepository;
+    private final MovieRepository movieRepository;
+    private final UserRepository userRepository;
 
     // TODO dodac opcje usuwania, edycji, dodawania dla wielu i dla innych klas
     public Long addMovie(CreateMovieDto createMovieDto) {

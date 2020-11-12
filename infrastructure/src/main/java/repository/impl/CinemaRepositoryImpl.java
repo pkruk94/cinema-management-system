@@ -62,4 +62,9 @@ public class CinemaRepositoryImpl implements CinemaRepository {
         jpaCinemaRepository.deleteAll();
         return true;
     }
+
+    @Override
+    public Optional<Cinema> findByNameCityAndAddress(String name, String city, String address) {
+        return jpaCinemaRepository.findCinemaByNameAndCityAndAddressLine(name, city, address);
+    }
 }

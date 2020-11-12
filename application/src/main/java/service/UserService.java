@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public Long register(CreateUserDto createUserDto) {
         var createUserValidator = new CreateUserValidator();
