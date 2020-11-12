@@ -6,10 +6,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import movie_showing.MovieShowing;
+import user.User;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -28,4 +30,7 @@ public class Movie extends BaseEntity {
 
     @OneToMany(mappedBy = "movie")
     private List<MovieShowing> movieShowings;
+
+    @ManyToMany(mappedBy = "favouriteMovies")
+    private Set<User> users;
 }
