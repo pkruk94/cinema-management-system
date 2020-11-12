@@ -2,10 +2,12 @@ package repository.impl;
 
 import lombok.RequiredArgsConstructor;
 import movie.Movie;
+import movie.MovieGenre;
 import movie.MovieRepository;
 import org.springframework.stereotype.Repository;
 import repository.jpa.JpaMovieRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,5 +63,10 @@ public class MovieRepositoryImpl implements MovieRepository {
     public boolean deleteAll() {
         jpaMovieRepository.deleteAll();
         return true;
+    }
+
+    @Override
+    public List<Movie> findAllByTitleContainsOrMovieGenreEqualsOrReleaseDateBetween(String title, MovieGenre movieGenre, LocalDate beg, LocalDate end) {
+        return jpaMovieRepository.findAllByTitleContainsOrMovieGenreEqualsOrReleaseDateBetween(title, movieGenre, beg, end);
     }
 }
