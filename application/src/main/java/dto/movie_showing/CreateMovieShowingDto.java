@@ -1,4 +1,4 @@
-package dto;
+package dto.movie_showing;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

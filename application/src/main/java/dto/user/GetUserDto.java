@@ -1,4 +1,4 @@
-package dto;
+package dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,10 +10,10 @@ import user.Role;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CreateUserDto {
+public class GetUserDto {
+
+    private Long id;
     private String username;
     private String email;
-    private String password;
-    private String passwordConfirmation;
     private Role role;
 }

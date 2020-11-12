@@ -1,4 +1,4 @@
-package dto;
+package dto.movie;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,10 +12,10 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CreateMovieDto {
+public class GetMovieDto {
 
+    private Long id;
     private String title;
     private MovieGenre movieGenre;
     private LocalDate releaseDate;
-
 }

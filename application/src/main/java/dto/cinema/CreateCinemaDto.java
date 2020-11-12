@@ -1,4 +1,4 @@
-package dto;
+package dto.cinema;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
