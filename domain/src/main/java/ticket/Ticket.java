@@ -33,6 +33,8 @@ public class Ticket extends BaseEntity {
     @ManyToOne(cascade = {CascadeType.PERSIST})
     private Discount discount;
 
+    private String seatNumber;
+
     public Money totalTicketPrice() {
         return movieShowing.getMovie().getPrice().withDiscount(discount.getValue());
     }
