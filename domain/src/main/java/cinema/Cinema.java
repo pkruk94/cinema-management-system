@@ -20,7 +20,9 @@ import java.util.List;
 @Table(name = "cinemas")
 public class Cinema extends BaseEntity {
 
+    private String name;
     private String city;
+    private String addressLine;
 
     @OneToMany(mappedBy = "cinema")
     private List<MovieShowing> movieShowings;

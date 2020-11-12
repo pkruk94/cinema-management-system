@@ -1,5 +1,6 @@
 package service;
 
+import dto.movie.CreateMovieDto;
 import dto.movie.GetMovieDto;
 import dto.movie.MovieFilterData;
 import exception.MovieServiceException;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import user.User;
 import user.UserRepository;
+import validation.CreateMovieValidator;
 
 import java.util.List;
 import java.util.Objects;
@@ -23,6 +25,24 @@ public class MovieService {
 
     private MovieRepository movieRepository;
     private UserRepository userRepository;
+
+    public Long addMovie(CreateMovieDto createMovieDto) {
+        var createMovieValidator = new CreateMovieValidator();
+        var errors = createMovieValidator.validate(createMovieDto);
+        if (!errors.isEmpty()) {
+            var errorMessage = errors
+                    .entrySet()
+                    .stream()
+                    .map(e -> e.getKey() + ": " + e.getValue())
+                    .collect(Collectors.joining(", "));
+
+            throw new MovieServiceException(errorMessage);
+        }
+
+        var movie = Mapper.fromCreateMovieToMovie(createMovieDto);
+        movie = movieRepository.addOrUpdate(movie).orElseThrow(() -> new MovieServiceException("Movie could not be added to database"));
+        return movie.getId();
+    }
 
     public List<GetMovieDto> getAllMovies() {
         return movieRepository

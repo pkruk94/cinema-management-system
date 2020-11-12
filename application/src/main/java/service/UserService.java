@@ -34,5 +34,6 @@ public class UserService {
         var user = Mapper.fromCreateUserToUser(createUserDto);
 
         //TODO dokonczyc
+        return null;
     }
 }
