@@ -40,6 +40,7 @@ public class MovieService {
         }
 
         var movie = Mapper.fromCreateMovieToMovie(createMovieDto);
+        // TODO potrzebny update?
         movie = movieRepository.addOrUpdate(movie).orElseThrow(() -> new MovieServiceException("Movie could not be added to database"));
         return movie.getId();
     }

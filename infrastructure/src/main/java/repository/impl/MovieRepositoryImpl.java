@@ -69,4 +69,19 @@ public class MovieRepositoryImpl implements MovieRepository {
     public List<Movie> findAllByTitleContainsOrMovieGenreEqualsOrReleaseDateBetween(String title, MovieGenre movieGenre, LocalDate beg, LocalDate end) {
         return jpaMovieRepository.findAllByTitleContainsOrMovieGenreEqualsOrReleaseDateBetween(title, movieGenre, beg, end);
     }
+
+    @Override
+    public Optional<Movie> findMovieByTitle(String title) {
+        return jpaMovieRepository.findMovieByTitle(title);
+    }
+
+    @Override
+    public List<Movie> findMovieByGenre(MovieGenre movieGenre) {
+        return jpaMovieRepository.findMoviesByMovieGenre(movieGenre);
+    }
+
+    @Override
+    public Optional<Movie> findMovieByTitleAndReleaseDate(String title, LocalDate releaseDate) {
+        return jpaMovieRepository.findMovieByTitleAndReleaseDate(title, releaseDate);
+    }
 }
