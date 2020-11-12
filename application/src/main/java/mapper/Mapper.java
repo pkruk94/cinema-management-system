@@ -35,6 +35,9 @@ public interface Mapper {
     static Cinema fromCreateCinemaToCinema(CreateCinemaDto createCinemaDto) {
         return Cinema.builder()
                 .city(createCinemaDto.getCity())
+                .addressLine(createCinemaDto.getAddressLine())
+                .roomNumbers(createCinemaDto.getRoomNumbers())
+                .name(createCinemaDto.getName())
                 .build();
     }
 
@@ -42,6 +45,9 @@ public interface Mapper {
         return GetCinemaDto.builder()
                 .city(cinema.getCity())
                 .id(cinema.getId())
+                .addressLine(cinema.getAddressLine())
+                .name(cinema.getName())
+                .roomNumbers(cinema.getRoomNumbers())
                 .build();
     }
 

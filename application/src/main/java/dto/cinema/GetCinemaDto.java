@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -12,5 +14,8 @@ import lombok.NoArgsConstructor;
 public class GetCinemaDto {
 
     private Long id;
+    private String name;
     private String city;
+    private String addressLine;
+    private List<Integer> roomNumbers;
 }
