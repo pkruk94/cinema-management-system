@@ -1,11 +1,13 @@
 package repository.impl;
 
 import lombok.RequiredArgsConstructor;
+import movie.MovieGenre;
 import movie_showing.MovieShowing;
 import movie_showing.MovieShowingRepository;
 import org.springframework.stereotype.Repository;
 import repository.jpa.JpaMovieShowingRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,5 +63,25 @@ public class MovieShowingRepositoryImpl implements MovieShowingRepository {
     public boolean deleteAll() {
         jpaMovieShowingRepository.deleteAll();
         return true;
+    }
+
+    @Override
+    public Optional<MovieShowing> findMovieShowingByCinemaIdAndMovieIdAndRoomNumberAndMAndMovieShowingTime(Long cinemaId, Long movieId, Integer roomNumber, LocalDateTime movieShowingTime) {
+        return jpaMovieShowingRepository
+                .findMovieShowingByCinemaIdAndMovieIdAndRoomNumberAndMAndMovieShowingTime(
+                        cinemaId, movieId, roomNumber, movieShowingTime
+                );
+    }
+
+    @Override
+    public List<MovieShowing> findMovieShowingsByMovieMovieGenreAndMovieShowingTimeBetweenAndCinemaCityAndCinemaName(MovieGenre movieGenre, LocalDateTime movieShowingTimeBeg, LocalDateTime movieShowingTimeEnd, String cinemaCity, String cinemaName) {
+        return jpaMovieShowingRepository
+                .findMovieShowingsByMovieMovieGenreAndMovieShowingTimeBetweenAndCinemaCityAndCinemaName(
+                        movieGenre,
+                        movieShowingTimeBeg,
+                        movieShowingTimeEnd,
+                        cinemaCity,
+                        cinemaName
+                );
     }
 }

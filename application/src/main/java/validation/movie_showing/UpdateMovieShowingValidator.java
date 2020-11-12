@@ -1,6 +1,6 @@
 package validation.movie_showing;
 
-import dto.movie_showing.CreateMovieShowingDto;
+import dto.movie_showing.UpdateMovieShowingDto;
 import validation.generic.Validator;
 
 import java.time.LocalDateTime;
@@ -8,14 +8,22 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class CreateMovieShowingValidator implements Validator<CreateMovieShowingDto> {
+public class UpdateMovieShowingValidator implements Validator<UpdateMovieShowingDto> {
     @Override
-    public Map<String, String> validate(CreateMovieShowingDto item) {
+    public Map<String, String> validate(UpdateMovieShowingDto item) {
         var errors = new HashMap<String, String>();
 
         if (Objects.isNull(item)) {
             errors.put("object", "object is null");
             return errors;
+        }
+
+        if (!isIdValid(item.getId())) {
+            errors.put("id", "id is not valid");
+        }
+
+        if (!isMovieIdValid(item.getMovieId())) {
+            errors.put("movie id", "movie id not valid");
         }
 
         if (!isCinemaIdValid(item.getCinemaId())) {
@@ -33,6 +41,10 @@ public class CreateMovieShowingValidator implements Validator<CreateMovieShowing
         return errors;
     }
 
+    private boolean isIdValid(Long id) {
+        return id != null && id > 0;
+    }
+
     private boolean isRoomNumberValid(Integer roomNumber) {
         return roomNumber != null && roomNumber > 0;
     }
@@ -45,4 +57,7 @@ public class CreateMovieShowingValidator implements Validator<CreateMovieShowing
         return cinemaId != null && cinemaId > 0;
     }
 
+    private boolean isMovieIdValid(Long movieId) {
+        return movieId != null && movieId > 0;
+    }
 }

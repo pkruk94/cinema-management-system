@@ -23,6 +23,7 @@ import javax.persistence.Table;
 @Table(name = "tickets")
 public class Ticket extends BaseEntity {
 
+    // TICKET service
     @ManyToOne(cascade = {CascadeType.PERSIST})
     private MovieShowing movieShowing;
 

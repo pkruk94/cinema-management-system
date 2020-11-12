@@ -21,6 +21,8 @@ import java.util.List;
 @Table(name = "discounts")
 public class Discount extends BaseEntity {
 
+    // TODO discount service
+    // TODO czy to plus cena jest dobrze zrobione
     // TODO walidajca
     private BigDecimal value;
     // TODO unique

@@ -49,8 +49,10 @@ public class MovieService {
 
         var movie = Mapper.fromCreateMovieToMovie(createMovieDto);
         // TODO potrzebny update?
-        movie = movieRepository.addOrUpdate(movie).orElseThrow(() -> new MovieServiceException("Movie could not be added to database"));
-        return movie.getId();
+        return movieRepository
+                .addOrUpdate(movie)
+                .orElseThrow(() -> new MovieServiceException("Movie could not be added to database"))
+                .getId();
     }
 
     public List<Long> addMovieMany(List<CreateMovieDto> createMovieDtos) {
