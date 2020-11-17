@@ -20,5 +20,7 @@ public class StatisticsService {
     private final DiscountRepository discountRepository;
     private final UserRepository userRepository;
 
-
+    public String findCityWithHighestNumberOfCustomers() {
+        return null;
+    }
 }

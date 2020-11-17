@@ -67,4 +67,9 @@ public class CinemaRepositoryImpl implements CinemaRepository {
     public Optional<Cinema> findByNameCityAndAddress(String name, String city, String address) {
         return jpaCinemaRepository.findCinemaByNameAndCityAndAddressLine(name, city, address);
     }
+
+    @Override
+    public List<Cinema> findCityWithHighestNumberOfCustomers() {
+        return jpaCinemaRepository.findCityWithHighestNumberOfCustomers();
+    }
 }
