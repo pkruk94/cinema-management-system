@@ -88,7 +88,7 @@ public class MovieShowingService {
                         .orElseThrow(() -> new MovieShowingServiceException("Movie cold not be deleted")));
     }
 
-    public Long updateMovie(UpdateMovieShowingDto updateMovieShowingDto) {
+    public Long updateMovieShowing(UpdateMovieShowingDto updateMovieShowingDto) {
         var updateMovieShowingValidator = new UpdateMovieShowingValidator();
         var errors = updateMovieShowingValidator.validate(updateMovieShowingDto);
         if (!errors.isEmpty()) {
