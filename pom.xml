@@ -26,13 +26,13 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.3.5.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/> <!-- lookup parent from com.app.repository -->
     </parent>
     <groupId>com.app</groupId>
-    <artifactId>cinema-management-system</artifactId>
+    <artifactId>com.app.cinema-management-system</artifactId>
     <version>1.0</version>
-    <name>cinema-management-system</name>
-    <description>My custom cinema management system</description>
+    <name>com.app.cinema-management-system</name>
+    <description>My custom com.app.cinema management system</description>
 
     <properties>
         <java.version>15</java.version>
