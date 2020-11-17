@@ -1,9 +1,6 @@
 package service;
 
-import dto.movie.CreateMovieDto;
-import dto.movie.GetMovieDto;
-import dto.movie.MovieFilterData;
-import dto.movie.UpdateMovieDto;
+import dto.movie.*;
 import exception.MovieServiceException;
 import lombok.RequiredArgsConstructor;
 import mapper.Mapper;
@@ -156,13 +153,13 @@ public class MovieService {
         );
     }
 
-    public boolean addMovieToFavourites(Long movieId, Long userId) {
-        if (Objects.isNull(movieId) || Objects.isNull(userId)) {
+    public boolean addMovieToFavourites(UpdateFavouriteMovie updateFavouriteMovie) {
+        if (Objects.isNull(updateFavouriteMovie.getMovieId()) || Objects.isNull(updateFavouriteMovie.getUserId())) {
             throw new MovieServiceException("Neither movie ID nor user ID cannot be null");
         }
 
-        User user = userRepository.findById(userId).orElseThrow(() -> new MovieServiceException("User could not be found while assigning favourite movie"));
-        Movie movie = movieRepository.findById(movieId).orElseThrow(() -> new MovieServiceException("Movie could not be found while assigning to user"));
+        User user = userRepository.findById(updateFavouriteMovie.getUserId()).orElseThrow(() -> new MovieServiceException("User could not be found while assigning favourite movie"));
+        Movie movie = movieRepository.findById(updateFavouriteMovie.getMovieId()).orElseThrow(() -> new MovieServiceException("Movie could not be found while assigning to user"));
 
         user.getFavouriteMovies().add(movie);
         // TODO potrzebne?
@@ -170,13 +167,13 @@ public class MovieService {
         return true;
     }
 
-    public boolean removeMovieFromFavourites(Long movieId, Long userId) {
-        if (Objects.isNull(movieId) || Objects.isNull(userId)) {
+    public boolean removeMovieFromFavourites(RemoveFavouriteMovie removeFavouriteMovie) {
+        if (Objects.isNull(removeFavouriteMovie.getMovieId()) || Objects.isNull(removeFavouriteMovie.getUserId())) {
             throw new MovieServiceException("Neither movie ID nor user ID cannot be null");
         }
 
-        User user = userRepository.findById(userId).orElseThrow(() -> new MovieServiceException("User could not be found while assigning favourite movie"));
-        Movie movie = movieRepository.findById(movieId).orElseThrow(() -> new MovieServiceException("Movie could not be found while assigning to user"));
+        User user = userRepository.findById(removeFavouriteMovie.getUserId()).orElseThrow(() -> new MovieServiceException("User could not be found while assigning favourite movie"));
+        Movie movie = movieRepository.findById(removeFavouriteMovie.getMovieId()).orElseThrow(() -> new MovieServiceException("Movie could not be found while assigning to user"));
 
         user.getFavouriteMovies().remove(movie);
         userRepository.addOrUpdate(user);
