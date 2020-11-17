@@ -63,4 +63,6 @@ public class UserService {
         user = userRepository.addOrUpdate(user).orElseThrow(() -> new UserServiceException("User could not be saved to database"));
         return user.getId();
     }
+
+
 }

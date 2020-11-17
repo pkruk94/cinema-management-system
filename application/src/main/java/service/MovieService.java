@@ -183,4 +183,14 @@ public class MovieService {
         return true;
     }
 
+    public boolean sendInfoAboutNewMovies() {
+        // TODO
+        return true;
+    }
+
+    public boolean sendInfoAboutFavouriteMovies(Long movieID) {
+        // TODO
+        return true;
+    }
+
 }
