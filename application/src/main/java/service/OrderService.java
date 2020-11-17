@@ -2,9 +2,11 @@ package service;
 
 import discount.DiscountRepository;
 import dto.order.CreateOrderDto;
+import dto.order.GetOrderDto;
 import dto.ticket.CreateTicketDto;
 import exception.OrderServiceException;
 import lombok.RequiredArgsConstructor;
+import mapper.Mapper;
 import movie_showing.MovieShowing;
 import movie_showing.MovieShowingRepository;
 import order.Order;
@@ -80,6 +82,18 @@ public class OrderService {
         orderRepository.addOrUpdate(newOrder);
         // TODO send email
         return newOrder.getId();
+    }
+
+    public List<GetOrderDto> getAllOrdersForUser(Long userId) {
+        if (userId == null) {
+            throw new OrderServiceException("User id cannot be null");
+        }
+
+        return orderRepository
+                .findAllByUserId(userId)
+                .stream()
+                .map(Mapper::fromOrderToGetOrderDto)
+                .collect(Collectors.toList());
     }
 
     private void validateForBookedTickets(CreateOrderDto createOrderDto) {

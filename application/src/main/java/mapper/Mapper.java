@@ -1,5 +1,6 @@
 package mapper;
 
+import base.BaseEntity;
 import cinema.Cinema;
 import dto.cinema.CreateCinemaDto;
 import dto.cinema.GetCinemaDto;
@@ -7,11 +8,15 @@ import dto.movie.CreateMovieDto;
 import dto.movie.GetMovieDto;
 import dto.movie_showing.CreateMovieShowingDto;
 import dto.movie_showing.GetMovieShowingDto;
+import dto.order.GetOrderDto;
 import dto.user.CreateUserDto;
 import dto.user.GetUserDto;
 import movie.Movie;
 import movie_showing.MovieShowing;
+import order.Order;
 import user.User;
+
+import java.util.stream.Collectors;
 
 public interface Mapper {
 
@@ -83,6 +88,20 @@ public interface Mapper {
                 .movieId(movieShowing.getMovie().getId())
                 .movieShowingTime(movieShowing.getMovieShowingTime())
                 .roomNumber(movieShowing.getRoomNumber())
+                .build();
+    }
+
+    static GetOrderDto fromOrderToGetOrderDto(Order order) {
+        return GetOrderDto
+                .builder()
+                .orderTime(order.getOrderTime())
+                .totalPrice(order.getTotalPrice())
+                .userID(order.getUser().getId())
+                .ticketsIDs(order
+                        .getTickets()
+                        .stream()
+                        .map(BaseEntity::getId)
+                        .collect(Collectors.toList()))
                 .build();
     }
 }
