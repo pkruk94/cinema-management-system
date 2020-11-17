@@ -3,6 +3,7 @@ package service;
 import discount.DiscountRepository;
 import dto.order.CreateOrderDto;
 import dto.order.GetOrderDto;
+import dto.order.OrderFilterData;
 import dto.ticket.CreateTicketDto;
 import exception.OrderServiceException;
 import lombok.RequiredArgsConstructor;
@@ -82,6 +83,22 @@ public class OrderService {
         orderRepository.addOrUpdate(newOrder);
         // TODO send email
         return newOrder.getId();
+    }
+
+    public List<GetOrderDto> getAllOrderForUserWithFilter(Long userId, OrderFilterData orderFilterData) {
+        if (userId == null) {
+            throw new OrderServiceException("User id cannot be null");
+        }
+
+        if (orderFilterData == null) {
+            throw new OrderServiceException("Filter data cannot be null");
+        }
+
+        return orderRepository
+                .findAllByUserIdAndData(userId, orderFilterData.getMinValue(), orderFilterData.getMaxValue(), orderFilterData.getMinTime(), orderFilterData.getMaxTime())
+                .stream()
+                .map(Mapper::fromOrderToGetOrderDto)
+                .collect(Collectors.toList());
     }
 
     public List<GetOrderDto> getAllOrdersForUser(Long userId) {
